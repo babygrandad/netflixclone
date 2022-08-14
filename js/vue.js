@@ -3,6 +3,8 @@ const { createApp } = Vue;
 createApp({
   data() {
     return {
+
+      //this array hold a list of objects that are popolated with movie information.
       movies: [
         {
           name: "Attack on Finland",
@@ -2151,13 +2153,18 @@ createApp({
         },
       ],
 
+      //this is the variable that holds the movies that are in the watchlist
       watchList: JSON.parse(localStorage.getItem("watchList")) || [],
 
+      //this is the variable that holds user information if they are online or offline
       users: JSON.parse(localStorage.getItem("users")) || { loggedIn: false },
     };
   },
 
   methods: {
+
+    /*The methods moveRight and moveLeft are responsible
+     for the scrolling function when pressing the scroll buttons on the movies section  */
     moveRight(row) {
       this.$refs[row].scrollBy({
         top: 0,
@@ -2174,10 +2181,13 @@ createApp({
       });
     },
 
+    /**This Method is respposible for setting the iframe of the movie, when its pressed */
     play(clip) {
       this.$refs.preview.innerHTML = clip;
     },
 
+    /**The two blocks of code below are responsible for adding and removing the movies
+     *  from the user's watchlist */
     addToWacthList(movieItem) {
       this.watchList.push(movieItem);
       // this.setLocalStorage();
@@ -2188,18 +2198,25 @@ createApp({
       this.setLocalStorage();
     },
 
+    //This is used to set the local storage for the watchlist movies 
     setLocalStorage() {
       localStorage.setItem("watchList", JSON.stringify(this.watchList));
     },
 
+    //This is used to set the local storage of the user when they log in or out of the application
     setUserLocalStorage() {
       localStorage.setItem("users", JSON.stringify(this.users));
     },
 
+
+    /*This block of code takes user input then checks to see if it is valid before
+    logging the user in. */
     loginUser() {
       let userName = document.getElementById("inputName");
       let password = document.getElementById("inputPassword");
-
+      
+      
+      //the 'if' and 'else if' statements are used to chack if there are no empty valuse when the form is submitted
       if (!userName.value && !password.value) {
         userName.classList.add("incorrectData");
         password.classList.add("incorrectData");
@@ -2218,19 +2235,26 @@ createApp({
         userName.classList.remove("incorrectData");
         password.classList.remove("incorrectData");
 
+
+        //the if statement first checks if the password is valid. if not it alerts the user.
         if (this.validatePasaword(password.value) != true) {
           password.value = "";
           alert(
             "Password must contain at lease 1 lowercase, 1 uppercase, 1 number, 1 special character and must be at least 8 charachters long."
           );
           password.classList.add("incorrectData");
-        } else if (this.validateUsername(userName.value) != true) {
+        }
+        //the if statement first checks if the username is valid. if not it alerts the user.
+        else if (this.validateUsername(userName.value) != true) {
           password.value = "";
           userName.classList.add("incorrectData");
           alert(
             "Username can only contain letters and numbers but must start with and alphabet."
           );
-        } else {
+        }
+        //the else block will log the user in if all requirements are met 
+        else {
+          //before logging in, the name is sliced and reconstructed so that only the first letter is capitalized
           let nameSlice, nameSplice, nameJoin;
           nameSplice = userName.value.slice(0, 1);
           nameSlice = userName.value.slice(1, userName.value.length + 1);
@@ -2242,12 +2266,18 @@ createApp({
       }
     },
 
+    /**This block of code is responsible for logging out a user by changing their logged in state to false
+     * and clearing their credentials from local storage.
+    */
     logoutUser() {
       this.users.name = "";
       this.users = { loggedIn: false };
       this.setUserLocalStorage();
     },
 
+
+    /* the two blocks of code below are responsible for validating the username and password using a
+    regular expression*/
     validatePasaword(password) {
       var passwordFormat = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})/;
       if (password.match(passwordFormat)) {
@@ -2269,6 +2299,11 @@ createApp({
   },
 
   computed: {
+
+    /*
+    this block of code takes the movies availDate and compares it to the curernt system date.
+    It then changes the movie's coming soon state to false if the current date is past the movies availdate
+    */ 
     movieDateUpdate() {
       let currentDate = new Date();
       let updatedmovies = [];
@@ -2284,6 +2319,14 @@ createApp({
       return updatedmovies;
     },
 
+    /*This block of code checks the movies comingSoon state then puts the in array which will be used
+    by the computed methosds for the categories. 
+    */
+    availMovies() {
+      return this.movies.filter((movie) => movie.comingSoon === false);
+    },
+    
+    /**this code displays all the movies that have been aded to the wtchlist in reverse order */
     watchListMovies() {
       let newList = [
         ...new Map(this.watchList.map((item) => [item["name"], item])).values(),
@@ -2292,14 +2335,12 @@ createApp({
       this.setLocalStorage();
       return newList.slice(0).reverse();
     },
-
+    /**This block of code will display all movies where the comingSoon state is true based on the movieDateUpdate() compute */
     comingSoonMovies() {
       return this.movieDateUpdate.filter((movie) => movie.comingSoon === true);
     },
 
-    availMovies() {
-      return this.movies.filter((movie) => movie.comingSoon === false);
-    },
+    //Code below is the computed to show movies based on their categoryies
 
     actionMovies() {
       return this.availMovies.filter((movie) => movie.genre === "action");

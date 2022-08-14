@@ -15,6 +15,7 @@
 <body>
     <main>
         <div id="app">
+            <!-- this is where the navigation bar for the page goes -->
             <nav>
                 <div class="navbar">
                     <div class="navbar-brand">
@@ -24,12 +25,13 @@
                         <h5 class="userNameDisplay" id="userNameDisplay" v-if=" users.loggedIn === true ">Hi
                             {{users.name}}</h5>
                         <div class="userStateButtons" v-if=" users.loggedIn === true ">
-                            <!-- <button class="userNavButton" id="navlogInButton">Log In</button> -->
                             <button @click="logoutUser" class="userNavButton" id="navlogOutButton">Log Out</button>
                         </div>
                     </div>
                 </div>
             </nav>
+
+            <!-- below is the code that makes up the login section of the webpage -->
             <div id="loginPage" class="loginPage" v-if=" users.loggedIn === false ">
                 <div class="formContainer">
                     <form id="loginForm">
@@ -42,6 +44,8 @@
                     </form>
                 </div>
             </div>
+
+            <!-- below is the code that make up the landing section of the webpage where all the movies are  -->
             <div class="moviesPage" v-if="users.loggedIn === true">
                 <div class="ComingSoonBanner row-container" v-if="comingSoonMovies.length > 0">
                     <h1 class="comingSoonText">Movies Coming Soon</h1>
@@ -72,7 +76,6 @@
                             :key="movie.name">
                             <img v-bind:src="movie.posterURL" v-bind:alt="movie.name" class="moviePoster">
                             <div class="movieName">{{ movie.name }}</div>
-                            <!-- <div class="watchlistActions addToList"><i class="fa-solid fa-circle-plus"></i></div> -->
                             <button class="watchlistActions removeFromList" @click.stop="removeFromWacthList(movie)"><i
                                     class="fa-solid fa-circle-minus"></i></button>
                         </div>
