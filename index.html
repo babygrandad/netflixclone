@@ -14,17 +14,18 @@
 
 <body>
     <main>
-        <div id="app" >
+        <div id="app">
             <nav>
                 <div class="navbar">
                     <div class="navbar-brand">
                         <img id='logo' src="assets/images/nekfliks-logo.png" alt="logo">
                     </div>
                     <div class="userStatus">
-                        <h5 class="userNameDisplay" id="userNameDisplay" v-if=" users.loggedIn === true ">Hi {{users.name}}</h5>
+                        <h5 class="userNameDisplay" id="userNameDisplay" v-if=" users.loggedIn === true ">Hi
+                            {{users.name}}</h5>
                         <div class="userStateButtons" v-if=" users.loggedIn === true ">
                             <!-- <button class="userNavButton" id="navlogInButton">Log In</button> -->
-                            <button @click="logoutUser" class="userNavButton" id="navlogOutButton" >Log Out</button>
+                            <button @click="logoutUser" class="userNavButton" id="navlogOutButton">Log Out</button>
                         </div>
                     </div>
                 </div>
@@ -36,7 +37,8 @@
                         <p class="formInstructions">Please put in your username and password to continue.</p>
                         <input class="formInputs formFields" type="text" placeholder="Username" id="inputName">
                         <input class="formInputs formFields" type="password" placeholder="password" id="inputPassword">
-                        <button type="submit" class="formInputs" @click.prevent="loginUser" id="formLogInButton">Log In</button>
+                        <button type="submit" class="formInputs" @click.prevent="loginUser" id="formLogInButton">Log
+                            In</button>
                     </form>
                 </div>
             </div>
@@ -84,11 +86,11 @@
                                     class="fa-solid fa-chevron-left fa-lg"></i></div>
                             <div class="scroller rightScroll" @click="moveRight('actionMovies')"><i
                                     class="fa-solid fa-chevron-right fa-lg"></i></div>
-                            <div class="box"  @click="play(movie.preview)" v-for="movie in actionMovies" :key="movie.id">
+                            <div class="box" @click="play(movie.preview)" v-for="movie in actionMovies" :key="movie.id">
                                 <img v-bind:src="movie.posterURL" v-bind:alt="movie.name" class="moviePoster">
                                 <div class="movieName">{{ movie.name }}</div>
-                                <button class="watchlistActions addToList" ref="doter" @click.stop="addToWacthList(movie)"><i
-                                        class="fa-solid fa-circle-plus"></i></button>
+                                <button class="watchlistActions addToList" ref="doter"
+                                    @click.stop="addToWacthList(movie)"><i class="fa-solid fa-circle-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -172,7 +174,7 @@
         </div>
     </main>
 
-    
+
     <script src="https://unpkg.com/vue@3"></script>
     <script src="js/vue.js" defer></script>
 </body>
