@@ -1,8 +1,11 @@
+/* importing font from google fonts  */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 /* removing the default padding and margings */
 body{
     padding: 0;
     margin: 0;
-    
+    font-family: Roboto, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 
 header{
@@ -111,7 +114,7 @@ main{
     padding-left: 10px;
 }
 
-/* below are conditional styling for the inout forms if user missed a field */
+/* below are conditional styling for the input forms if user missed a field */
 .incorrectData{
     border: 1px solid red;
 }
@@ -133,10 +136,6 @@ main{
 
 /* styles for the movies page background and text color */
 
-#app{
-    /* display: none; */
-}
-
 .moviesPage{
     background-color: #333;
     color: white;
@@ -156,7 +155,16 @@ iframe{
 }
 
 
-/* All the styles for the movies scolls section  */
+/* styles for the movies catecory texts */
+.comingSoonText{
+    font-size: 3.5rem;
+    text-align: center;
+    margin: 0;
+    padding:20px;
+}
+
+
+/* All the styles for the movies scrolls section  */
 
 .row-Container{
     /* border: 1px solid red; */
@@ -269,6 +277,45 @@ iframe{
     border-radius: 0 8px 8px 0;
 }
 
+/* styles for the coming soon banner */
+.ComingSoonBanner{
+    border-bottom: 10px solid grey;
+    margin-bottom: 50px;
+}
+
+.categoryText{
+    font-size: 2rem;
+    margin:30px 0 0px 20px ;
+}
+
 .row::-webkit-scrollbar{
     display: none;
 }
+
+/* media queries for smaller screen styles */
+
+@media only screen and (max-width: 768px) {
+    
+    iframe{
+        width: 100%;
+    }
+
+  }
+
+  @media only screen and (max-width: 560px) {
+    
+    .userStatus{
+        display: block;
+    }
+
+    .comingSoonText{
+        font-size: 2.8rem;
+    }
+
+  }
+
+  @media only screen and (max-width: 425px){
+    .scroller{
+        display: none;
+    }
+  }
