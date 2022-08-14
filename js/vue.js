@@ -2266,11 +2266,6 @@ createApp({
       }
     },
 
-    // test zone
-    checkList() {
-      console.log(this.watchList.length);
-    },
-    // test zone
   },
 
   computed: {
